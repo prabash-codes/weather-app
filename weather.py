@@ -16,27 +16,28 @@ root.geometry("900x500+300+200")
 root.resizable(False,False)
 
 def getweather():
-    city = textfield.get()
-
-    geolocator = Nominatim(user_agent="geopixercises")
-    location = geolocator.geocode(city)
-    
-    lat = location.latitude
-    lon = location.longitude
-    obj = TimezoneFinder()
-    result = obj.timezone_at(lng=lon,lat=lat)
-    
-
-    home = pytz.timezone(result)
-    local_time = datetime.now(home)
-    current_time = local_time.strftime("%I:%M:%p")
-    clock.config(text=current_time)
-    name.config(text="CURRENT WEATHER")
-
-       #weather
-    api = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=eea79ec321d3a2129cf71c524f9658c7"
-    
     try:
+        city = textfield.get()
+
+        geolocator = Nominatim(user_agent="geopixercises")
+        location = geolocator.geocode(city)
+    
+        lat = location.latitude
+        lon = location.longitude
+        obj = TimezoneFinder()
+        result = obj.timezone_at(lng=lon,lat=lat)
+    
+
+        home = pytz.timezone(result)
+        local_time = datetime.now(home)
+        current_time = local_time.strftime("%I:%M:%p")
+        clock.config(text=current_time)
+        name.config(text="CURRENT WEATHER")
+
+        #weather
+        api = f"https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=eea79ec321d3a2129cf71c524f9658c7"
+    
+    
         json_data = requests.get(api).json()
         condition = json_data['weather'][0]['main']
         description = json_data['weather'][0]['description']
