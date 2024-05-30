@@ -15,6 +15,8 @@ root.title("Weather App")
 root.geometry("900x500+300+200")
 root.resizable(False,False)
 
+
+
 def getweather():
     try:
         city = textfield.get()
@@ -55,6 +57,7 @@ def getweather():
     except Exception as e:
         messagebox.showerror("Error","City not found")
         textfield.delete(0,END)
+
 
 #search bx
 
